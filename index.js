@@ -34,7 +34,11 @@ function formatAttrs(attributes, opts) {
 
     output += key;
     if ((value !== null && value !== '') || opts.xmlMode) {
-        output += '="' + (opts.decodeEntities ? entities.encodeXML(value) : value) + '"';
+      if(/[^\\]\"/.test(value)){
+        output += key + "='" + (opts.decodeEntities ? entities.encodeXML(value) : value) + "'";
+      }else {
+        output += key + '="' + (opts.decodeEntities ? entities.encodeXML(value) : value) + '"';
+      }
     }
   }
 
